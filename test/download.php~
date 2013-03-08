@@ -1,0 +1,239 @@
+
+<?php
+if(isset($_GET['file']))
+{
+	$file = $_GET['file'];
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/jpg');
+    header('Content-Disposition: attachment; filename='.basename($file));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    ob_clean();
+    flush();
+    readfile($file);
+    exit;
+}
+
+if(!empty($_FILES))
+{
+	move_uploaded_file($_FILES["uploadfile"]["tmp_name"],"/var/www/test/" . $_FILES["uploadfile"]["name"]);
+	exec("chmod 777 -R. /var/www/test/small/");
+	
+	//resize images and uplad in folder
+	chmod("/var/www/test/".$_FILES["uploadfile"]["name"], 0777);
+	copy("/var/www/test/".$_FILES["uploadfile"]["name"],"/var/www/test/small/".$_FILES["uploadfile"]["name"]);
+	chmod("/var/www/test/small/".$_FILES["uploadfile"]["name"], 0777);
+}
+
+if(isset($_GET['folder']))
+{
+	$foldername = $_GET['folder'];	
+}else{
+	$foldername = __DIR__."/small";
+}
+
+?>
+	
+<html>
+
+<head>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript">
+//	$(document).ready(function(){
+//	$("button").click(function(){
+//		var id = $(this).attr("id");
+//		var data = $("."+id).val();	
+//		
+//		var request = $.ajax({
+//		  url: "save.php",
+//		  type: "POST",
+//		  data: {saveid : id,
+//			 savedata : data},
+//		  dataType: "html"
+//		});
+//
+//		request.done(function(msg) {
+//			if(msg !="0"){
+//			  alert("Data added successfully !");
+//			}
+//			else{
+//			  alert("ERROR OCCURED !");
+//			}
+//		});
+//
+//	});
+//});
+
+	function upload()
+	{
+		$('#upload_form').submit();	
+	}
+
+	$(document).ready(function(){
+		
+		var counter = 1;
+		//function ality to add data
+		$("#add").live("click",function(){
+
+			var data = $(this).parent().parent().parent().html();
+			var inputid = $(this).parent().parent().children('div:first').children('input:first').attr('name');
+			var inputid = $(this).parent().parent().children('div:first').children('input:first').attr('name',inputid+counter);
+			counter++;
+			data = "<div id='tmpl'>"+data+"</div>";
+			$(this).parent().remove();
+			$('#container').append(data);
+
+		});
+
+
+		//functionality to remove data
+		$(".remove").live("click",function(){
+
+//			var res=confirm("Are you want to delete it!");
+//			if (res==true)
+//			{
+			 $(this).parent().parent().parent().remove();
+//			}
+		});
+
+	});
+
+	function createfolder()
+	{
+		pathname = "<?php echo $foldername;?>";
+		var foldername=prompt("Please enter folder name","untitled");
+		var x= "<"+"?php ";
+		var y= " ?>";
+		var data = x+ 'createfolder("'+pathname+'","'+foldername+'");'+y;
+		alert(data);
+		$('#createfolder').append(data);
+	}
+	
+	</script>
+	<style>
+	
+	#shade {
+	
+	width:18%; padding:5px; float:left;
+	overflow:hidden;
+	margin-left:20px;
+	
+	}
+	
+	#shade a{
+		text-decoration:none;
+		color:#3A3A47;
+	}
+	
+	#dshade:hover {
+	box-shadow: 10px 10px 5px #888;overflow:hidden;
+	width:18.2%; padding:1px; float:left;
+	}
+	
+	
+	.left
+	{
+		float:left;
+	}
+	
+	.cust_button
+	{
+	float:left;
+	margin-top:1px;
+	}
+	.cust_row
+	{
+	clear:both;
+	float:left;
+	margin-top:5px;
+	}
+	#container{
+		float:left;
+		width:80%;
+	}
+	#upload{
+		float:left;
+		width:20%;
+	}
+	
+	.grid_100
+	{
+		width:100%;
+	}
+	
+
+	</style>
+</head>
+
+<body style="font-size:1.5em; font-style:verdana;">
+<div style='width:23%; margin:4%; float:left; '>
+	<h1 style="color:#FF0057;">HD Wallpapers</h1>
+	<span onclick='createfolder(<?php $foldername; ?>);'>create folder</span>
+</div>
+<div style='width:44%; margin:0 0 5% 20%; float:left;'><img src="desc.jpeg"></div>
+</div>
+
+<br><br><br><br>
+<?php
+$handle = scandir($foldername);
+echo "<div style='width:100% overflow:hidden;'>";
+
+
+foreach($handle as $file):
+
+if(!is_file($file)){
+	
+	if($file == '.' || $file == '..')continue;
+	
+	?>
+	<div  id="shade" >	
+	<a href="http://10.0.0.17/test/download.php?folder=<?php echo $foldername.'/'.$file;?>">
+			<span style="width:100%; float:left; overflow:hidden; text-align:center">
+				<span class="left grid_100"><img src="folder.png"></span>
+				<span class="left grid_100"><?php echo $file;?></span>
+			</span>	
+	</a>
+	</div>
+	<?php 
+	continue;
+}
+
+ $extension = strrev(strtok(strrev($file),'.'));
+
+ if($extension != 'jpg' && $extension != 'png'  && $extension != 'jpeg' && $extension != 'gif'){continue;}
+?>
+	<div  id="shade" >	
+	<a href="http://10.0.0.17/test/<?php echo $file;?>">
+			<span style="width:80%; float:left; overflow:hidden;"><img style="width:100%; height:20%;" alt="i don't know why?" src="<?php echo $foldername.'/'.$file;?>"></span>
+	</a>
+	<a href="http://10.0.0.17/test/download.php?file=<?php echo $file;?>">
+			<span style="width:16%; float:left; overflow:hidden; margin-top:2.8em; padding-left:10px;"><img style="width:80%; height:5%;"  src="<?php echo 'download.png';?>"></span>
+	</a>
+	</div>
+
+<?php 
+endforeach;
+echo "</div>"
+?>
+<p id='createfolder'>
+
+</p>
+</body>
+</html>
+
+<?php 
+ $prevTraced = file_get_contents('tracking.txt');
+ $obj = json_decode($prevTraced);
+ $obj->views++;
+ file_put_contents('tracking.txt',json_encode($obj));
+ function createfolder($pathname,$folderName)
+ {
+ 	if(!empty($pathname) || !empty($folderName))
+ 	mkdir($pathname.'/'.$folderName);	
+ 	echo "done";
+ }
+ 
+?>
