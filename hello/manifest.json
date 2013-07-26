@@ -1,0 +1,17 @@
+{
+  "name": "My Localhost",
+  "description": "This is my first chrome app for learnings",
+  "version": "1.0",
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "16": "icon16.jpeg", "128": "icon128.jpeg" },
+
+  "permissions": [
+    "notifications"
+  ]
+
+
+}
