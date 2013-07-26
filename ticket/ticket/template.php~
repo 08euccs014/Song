@@ -1,0 +1,98 @@
+<div>[[POSITION::1]]</div>
+<div>[[POSITION::2]]</div>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!--<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+<link type="text/css" rel="stylesheet" href="css/bootstrap-responsive.css">-->
+<title>Discuss your thoughts to others without your identification</title>
+</head>
+<body>
+	<header class="rbsl-header">
+		<div class="rbsl-container">
+			<div class="rbsl-top">
+			
+			</div>
+		</div>
+	</header>
+	
+	<section class="rbsl-content">
+		<div class="rbsl-container">
+			<div class="rbsl-maintop">
+				<h1>Discuss anything to anybody...</h1>
+			</div>
+			
+			<div class="rbsl-discuss-content">
+					<div class="rbsl-bottom-a">[[POSITION::1]]</div>
+							<div dataId="#discuss-topic1" class="rbsl-Discus-title hero-unit">
+								Discuss-1
+							</div>
+							
+							<div dataId="#discuss-topic2" class="rbsl-Discus-title hero-unit">
+								Discuss-2
+							</div>
+							
+							<div dataId="#discuss-topic3" class="rbsl-Discus-title hero-unit">
+								Discuss-3
+							</div>
+							
+							<div dataId="#discuss-topic4" class="rbsl-Discus-title hero-unit">
+								Discuss-4
+							</div>
+					</div>
+					
+					<div id="discuss-detail" class="rbsl-bottom-b">
+						<div class="comman" id="discuss-topic1">
+								<form action="" method="get">
+									<textarea>
+										rakesh
+									</textarea>
+								</form>
+						</div>
+						
+						<div class="comman" id="discuss-topic2">
+								<form action="" method="get">
+									<textarea>
+									prem
+									</textarea>
+								</form>
+						</div>
+						
+						<div class="comman" id="discuss-topic3">
+								<form action="" method="get">
+									<textarea>
+										mohit
+									</textarea>
+								</form>
+						</div>
+						
+						<div class="comman" id="discuss-topic4">
+								<form action="" method="get">
+									<textarea>
+										mohit
+									</textarea>
+								</form>
+						</div>
+					</div>
+			</div>
+		</div>
+	</section>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready (function(){
+		$(".rbsl-Discus-title").click(function(){
+			$('.rbsl-bottom-a').addClass('span3');
+			var currentId1 = $(this).attr('dataId');
+			$('.comman').hide('slow');
+			$(currentId1).show('slow');
+			$('.rbsl-bottom-b').addClass('span9');
+			
+		});
+	});
+</script>
+</body>
+</html>
