@@ -36,6 +36,11 @@
 
 	
 	</script>
+	<style>
+		[class*="span"] {
+			margin-left: 0px !important;
+		}
+	</style>
 
 </head>
 <?php 
@@ -53,9 +58,16 @@
 		}
 	}
 
-	function chmod_r($foldername)
-	{
-
+	if(isset($_GET['delete'])){
+		$delete = $_GET['delete'];
+		$file = "/var/www/".$_GET['file'];
+		if($delete == 1)
+		{	
+			exec ("chmod 777 -R ".$file);		
+			exec ("rm -r $file");
+			exec ("mysqladmin -u root -ppassword drop -f {$_GET['file']}");
+			header("Location: http://{$serverUrl}/index.php");
+		}
 	}
 	
 ?>
@@ -75,6 +87,7 @@
 	<div style='width:50%; float:right; margin-top:1%;'><a href="http://<?php echo $serverUrl.'/editor.php'; ?>">My Editor</div>
 </div>
 <br><br><br><br>
+<div class="container-fluid">
 <?php
 
 $handle = scandir(dirname(__FILE__));
@@ -86,85 +99,38 @@ foreach($handle as $file){
 		if(stristr($file,'payplans')){
 ?>
 
-<!-- for desktop-->
+	<div class="row-fluid">
+		<div id=project class="span2">
+			<a href='http://<?php echo $serverUrl.'/'.$file; ?>'><?php echo $file; ?></a>
+		</div>		
 
-	<div class="visible-desktop">
-		<div id=project style='width:12%; margin-left:1%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl.'/'.$file; ?>'><?php echo $file; ?></a></div>
-		
-		<div style='width:6%; float:left;'>
-			<form id='form-login' style='clear: both;' name='login' method='post' action='http://<?php echo $serverUrl.'/'.$file; ?>/administrator/index.php' >
-				<input class='btn' type=submit value='admin' name='submit' />
-				<input type=hidden value='admin' name='username' />
-				<input type=hidden value='ssv445' name='passwd'>
-			</form>
+		<div class="span1">
+			<a class="text-warning" href="http://<?php echo $serverUrl.'/'.$file; ?>/administrator/index.php">admin</a>
 		</div>
 		
-		<div style='width:10%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl; ?>/index.php?unlock=1&file=<?php echo $file; ?>'>unlock</a></div>
-	
+		<div class="span1">
+			<a class="muted" href='http://<?php echo $serverUrl; ?>/index.php?unlock=1&file=<?php echo $file; ?>'>unlock</a>
+		</div>
+
+		<div class="span1">
+			<a class="text-error" href='http://<?php echo $serverUrl; ?>/index.php?delete=1&file=<?php echo $file; ?>'>Delete</a>
+		</div>
+
 		<?php	$filecontent = file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r'); ?>
-		<div style='float:left; width:70%;'>
+		<div class="span7">
 			<span><textarea class=<?php echo $file; ?> style='width:28%; height:16%'><?php echo $filecontent; ?></textarea></span>
 			<span id="example" data-toggle="tooltip" title="first tooltip" style='margin-left:1%;'>
 				<button class='btn btn-info' id=<?php echo $file; ?> data-dismiss='alert' data-toggle='tooltip' >save</button>
 			</span>
 		</div>
 	</div>
-		
-
-<!-- for tablet-->
-
-	<div class="visible-tablet">
-		<div id=project style='width:20%; margin-left:1%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl.'/'.$file; ?>'><?php echo $file; ?></a></div>
-		
-		<div style='width:10%; float:left;'>
-			<form id='form-login' style='clear: both;' name='login' method='post' action='http://<?php echo $serverUrl.'/'.$file; ?>/administrator/index.php' >
-				<input class='btn' type=submit value='admin' name='submit' />
-				<input type=hidden value='admin' name='username' />
-				<input type=hidden value='ssv445' name='passwd'>
-			</form>
-		</div>
-		
-		<div style='width:10%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl; ?>/index.php?unlock=1&file=<?php echo $file; ?>'>unlock</a></div>
-	
-		<?php	$filecontent = file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r'); ?>
-		<div style='float:left; width:50%;'>
-			<span><textarea class=<?php echo $file; ?> style='width:74%; height:16%'><?php echo $filecontent; ?></textarea></span>
-			<span id="example" data-toggle="tooltip" title="first tooltip" style='margin-left:1%;'>
-				<button class='btn btn-info' id=<?php echo $file; ?> data-dismiss='alert' data-toggle='tooltip' >save</button>
-			</span>
-		</div>
-	</div>
-
-<!-- for phone-->
-	
-	<div class="visible-phone">
-		<div id=project style='width:100%; margin-left:1%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl.'/'.$file; ?>'><?php echo $file; ?></a></div>
-		
-		<div style='width:100%; float:left;  margin-top:2%;'>
-			<form id='form-login' style='clear: both;' name='login' method='post' action='http://<?php echo $serverUrl.'/'.$file; ?>/administrator/index.php' >
-				<input class='btn' type=submit value='admin' name='submit' />
-				<input type=hidden value='admin' name='username' />
-				<input type=hidden value='ssv445' name='passwd'>
-			</form>
-		</div>
-		
-		<div style='width:100%; float:left;'><a style='text-decoration:none;' href='http://<?php echo $serverUrl; ?>/index.php?unlock=1&file=<?php echo $file; ?>'>unlock</a></div>
-	
-		<?php	$filecontent = file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r'); ?>
-		<div style='float:left; width:100%; margin-top:1%;'>
-			<span><textarea class=<?php echo $file; ?> style='width:28%; height:16%'><?php echo $filecontent; ?></textarea></span>
-			<span id="example" data-toggle="tooltip" title="first tooltip" style='margin-left:1%;'>
-				<button class='btn btn-info' id=<?php echo $file; ?> data-dismiss='alert' data-toggle='tooltip' >save</button>
-			</span>
-		</div>
-	</div>
-
-<?php
+<?php		
 		}
 	}
 }
 
 ?>
+</div>
 </body>
 </html>
 
