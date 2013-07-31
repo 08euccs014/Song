@@ -117,11 +117,14 @@ foreach($handle as $file){
 		</div>
 
 		<?php	$filecontent = file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r'); ?>
-		<div class="span7">
+		<div class="span5">
 			<span><textarea class=<?php echo $file; ?> style='width:28%; height:16%'><?php echo $filecontent; ?></textarea></span>
 			<span id="example" data-toggle="tooltip" title="first tooltip" style='margin-left:1%;'>
 				<button class='btn btn-info' id=<?php echo $file; ?> data-dismiss='alert' data-toggle='tooltip' >save</button>
 			</span>
+		</div>
+		<div class="span2">
+			<?php echo date("d, F Y", filemtime(dirname(__FILE__)."/".$file)); ?>
 		</div>
 	</div>
 <?php		
