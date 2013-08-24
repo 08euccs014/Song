@@ -1,0 +1,11 @@
+
+there many network filesystem to use to mount network folder
+1 Samba : installed on all network pc but doesn't work in mounting it require smbfs which is not available
+2 nfs 	: good need to setup both server as well as client (tried for localend working)
+3 cifs  : it's done try following commands
+
+sudo apt-get install cifs-utils
+sudo mkdir /media/mohit/test/
+sudo mount -t cifs //10.0.0.91/rbsl-server/Music /media/mohit/test/
+
+
