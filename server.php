@@ -47,6 +47,9 @@ unset($handle[0]);
 unset($handle[1]);
 
 foreach($handle as $file){
+	if(stristr($file,'.jpg') || stristr($file,'.jpeg') || stristr($file,'.png') || stristr($file,'.db'))
+		continue;
+				
 	$fileordir = 0;
 	
 ?>
