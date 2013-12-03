@@ -24,6 +24,9 @@ quickly edit
 there is main file which has window named in it's filename eg. MyfirstappWindow.py
 you need to open and start the code :)
 
+if you want to create it as installation debian package then type
+quickly package
+
 for using gtk library you can use following link that i found doing some googling "gtk tutorial linux python"
 http://python-gtk-3-tutorial.readthedocs.org/en/latest/entry.html
 
