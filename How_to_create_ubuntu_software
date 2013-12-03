@@ -1,0 +1,36 @@
+firstly i search for how to create ubuntu desktop application, but then got nothing much other than Qt GTK ide and i will not work for me.
+
+Then if found an another solution called "quickly", you can install it using ubuntu software center or simply usign cli.
+
+basically this works in python, so you need to learn it and gtk library to use the ui.
+
+after isntallation to just create app type the following command:
+quickly create ubuntu-application myfirstapp
+
+it will create an application you can goto it's folder 
+cd myfirstapp
+
+then you can also run it usign following command
+quickly run
+
+then to desing ui, 
+quickly design
+or 
+quickly glad 
+
+then you can also edit the source code to chagne functionaning ,
+quickly edit
+
+there is main file which has window named in it's filename eg. MyfirstappWindow.py
+you need to open and start the code :)
+
+for using gtk library you can use following link that i found doing some googling "gtk tutorial linux python"
+http://python-gtk-3-tutorial.readthedocs.org/en/latest/entry.html
+
+then you can also follow the following tutorial for this 
+http://www.youtube.com/watch?v=sO8hiPreNBg
+http://www.youtube.com/watch?v=9EctXzH2dss
+
+
+
+

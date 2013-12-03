@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=Mylocalhost
+_Comment=Mylocalhost application
+Categories=GNOME;Utility;
+Exec=mylocalhost
+Icon=mylocalhost
+Terminal=false
+Type=Application
