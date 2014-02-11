@@ -1,48 +1,3 @@
-<html>
-<head>
-<!--	<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>-->
-	<link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-	<link type="text/css" rel="stylesheet" href="/bootstrap/responsive/css/bootstrap.min.css">
-	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/bootstrap/jquery.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		
-
-		$("button").click(function(){
-			var id = $(this).attr("id");
-			var data = $("."+id).val();	
-			
-			var request = $.ajax({
-			  url: "save.php",
-			  type: "POST",
-			  data: {saveid : id,
-				 savedata : data},
-			  dataType: "html"
-			});
-
-			request.done(function(msg) {
-				if(msg !="0"){
-				  alert("Data added successfully !");
-				}
-				else{
-				  alert("ERROR OCCURED !");
-				}
-			});
-
-		});
-
-	});
-
-	
-	</script>
-	<style>
-		[class*="span"] {
-			margin-left: 0px !important;
-		}
-	</style>
-
-</head>
 <?php 
 
 	if(isset($_SERVER['HTTP_HOST']))
@@ -71,69 +26,177 @@
 	}
 	
 ?>
-<body style="font-size:1.5em; font-family: 'Fjalla One', sans-serif;">
-<div class="visible-desktop">
-	<div style='width:10%; text-align:center; float:left; margin-top:1%;'>PROJECT NAME</div>
-	<div style='width:80%; text-align:center; float:left; margin-top:1%;'>UTILIZATION</div>
-	<div style='width:10%; float:right; margin-top:1%;'><a href="http://<?php echo $serverUrl.'/editor.php'; ?>">My Editor</div>
-</div>
-<div class="visible-tablet">
-	<div style='width:50%; text-align:center; float:left; margin-top:1%;'>PROJECT NAME</div>
-	<div style='width:40%; text-align:center; float:left; margin-top:1%;'>UTILIZATION</div>
-	<div style='width:10%; float:right; margin-top:1%;'><a href="http://<?php echo $serverUrl.'/editor.php'; ?>">My Editor</div>
-</div>
-<div class="visible-phone">
-	<div style='width:50%; text-align:center; float:left; margin-top:1%;'>LOCALHOST UTILITY</div>
-	<div style='width:50%; float:right; margin-top:1%;'><a href="http://<?php echo $serverUrl.'/editor.php'; ?>">My Editor</div>
-</div>
-<br><br><br><br>
-<div class="container-fluid">
+
+<!DOCTYPE html>
+<html lang="en" ng-app>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/bootstrap3/assets/ico/favicon.png">
+
+    <title>Agrawal's Localend (<?php echo $_SERVER['SERVER_ADDR']; ?>)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bootstrap3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="justified-nav.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container"  data-ng-controller="simplecontroller">
+
+      <div class="masthead">
+        <ul class="nav nav-justified">
+          <li class="active"><a href="#">Localhost Utility</a></li>
+          <li><a href="http://<?php echo $serverUrl.'/myissue.php'; ?>">My Issue</a></li>
+            <li><a href="http://<?php echo $serverUrl.'/editor.php'; ?>">My Editor</a></li>
+          <li><a href="#">empty</a></li>
+          <li><a href="#">empty</a></li>
+        </ul>
+      </div>
+    
+<!--     <h1 class="text-center">Localhost Utility</h1> 
+	<div class="text-right"><a href="http://<?php //echo $serverUrl.'/editor.php'; ?>">My Editor</a></div> -->
+      
+	<br />
+	<br />
+	<br />
+  
+	<!-- Searching Box -->			
+      
+    <div class="col-md-6 col-md-offset-3">
+	    <input id="searchbox" type="text" class="form-control" style="height:46px;" data-ng-model="searchtext">
+    </div>
+
+	<br />&nbsp;<br /><br /><hr />
+	
+	
+      <!-- Example row of columns -->
+	<div class="row" data-ng-repeat="folder in folders | filter:searchtext ">
+		<div class="col-lg-3">
+		  <h3><a target="_blank" href="{{ folder.frontEndLink }}">{{ folder.name}}</a></h3>
+		  <a target="_blank" href="{{ folder.backEndLink }}">administrator</a>
+		</div>
+		<div class="col-lg-5">
+			<textarea class="{{ folder.name }} form-control" rows="3">{{ folder.data }}</textarea>
+		</div>
+		<div class="col-lg-4" style="padding:25px;">
+			<button id="{{ folder.name }}" class="btn btn-primary" >Save &raquo;</button>
+			<a class="btn btn-danger" href="#">Delete</a>
+			<a class="btn btn-warning" href="#">unlock</a>
+		</div>
+		<br /><br />
+		<br /><br /><hr />
+	</div>
+
+      <!-- Site footer -->
+      <div class="footer">
+        <p>&copy; Mohit Agrawal 2013</p>
+      </div>
+      <div id="log"></div>
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
 <?php
 
 $handle = scandir(dirname(__FILE__));
-$first =array(); 
+$folder = array(); 
 
 foreach($handle as $file){
 
 	if(is_dir($file)){
-		if(stristr($file,'payplans')){
-?>
-
-	<div class="row-fluid">
-		<div id=project class="span2">
-			<a href='http://<?php echo $serverUrl.'/'.$file; ?>'><?php echo $file; ?></a>
-		</div>		
-
-		<div class="span1">
-			<a class="text-warning" href="http://<?php echo $serverUrl.'/'.$file; ?>/administrator/index.php">admin</a>
-		</div>
-		
-		<div class="span1">
-			<a class="muted" href='http://<?php echo $serverUrl; ?>/index.php?unlock=1&file=<?php echo $file; ?>'>unlock</a>
-		</div>
-
-		<div class="span1">
-			<a class="text-error" href='http://<?php echo $serverUrl; ?>/index.php?delete=1&file=<?php echo $file; ?>'>Delete</a>
-		</div>
-
-		<?php	$filecontent = file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r'); ?>
-		<div class="span5">
-			<span><textarea class=<?php echo $file; ?> style='width:28%; height:16%'><?php echo $filecontent; ?></textarea></span>
-			<span id="example" data-toggle="tooltip" title="first tooltip" style='margin-left:1%;'>
-				<button class='btn btn-info' id=<?php echo $file; ?> data-dismiss='alert' data-toggle='tooltip' >save</button>
-			</span>
-		</div>
-		<div class="span2">
-			<?php echo date("d, F Y", filemtime(dirname(__FILE__)."/".$file)); ?>
-		</div>
-	</div>
-<?php		
+		if(stristr($file,'payplans') || stristr($file,'xius')){
+			$folder[] = array(
+								 'name'=>$file
+								,'frontEndLink' => "http://{$serverUrl}/{$file}"
+								,'backEndLink'	=> "http://{$serverUrl}/{$file}/administrator/index.php"
+								,'unlockLink'	=> "http://{$serverUrl}/index.php?unlock=1&file={$file}"
+								,'deleteLink'	=> "http://{$serverUrl}/index.php?delete=1&file={$file}"
+								,'data'			=>	file_get_contents(dirname(__FILE__)."/".$file."/README.txt",'r')	
+						); 		
 		}
 	}
 }
 
+//$recentLinks 	= file_get_contents('my.cache','r');
+//$recentLinks 	= explode("\n",$recentLinks);
+//$recentLinks 	= array_reverse($recentLinks, true);
+
+//for($i = 0 ; $i < 10 ; $i++){
+	//echo "<h3><a href=".$recentLinks[$i].">".$recentLinks[$i]."</a><h3>";
+//}
+
 ?>
-</div>
-</body>
+
+	<script src="/bootstrap3/assets/js/jquery.js" type="text/javascript"></script>
+    <script src="angular/angular.js" type="text/javascript"></script>
+	<script>
+	function simplecontroller($scope)
+	{
+		$scope.folders = <?php echo json_encode($folder);?>
+	}
+
+	$(document).ready(function(){
+
+		$("#searchbox").focus();
+
+		$( "body" ).click(function( event ) {
+			var target = $(event.target);
+			if(target.is("a")) {
+				$.ajax({
+					  url: "save.php",
+					  type: "POST",
+					  data: {	
+						  		savedata 	: target.attr('href')+"\n",
+						 		saveToFile 	: 'my.cache',
+							 	saveAppend 	: true
+						 	},
+					  dataType: "html"
+				});
+			}
+			
+		});
+
+		
+		$("button").click(function(){
+			var id = $(this).attr("id");
+			var data = $("."+id).val();	
+			
+			var request = $.ajax({
+			  url: "save.php",
+			  type: "POST",
+			  data: {saveid : id,
+				 savedata : data},
+			  dataType: "html"
+			});
+		
+			request.done(function(msg) {
+				if(msg !="0"){
+				  alert("Data added successfully !");
+				}
+				else{
+				  alert("ERROR OCCURED !");
+				}
+			});
+		
+		});
+
+	});
+	</script>
+  </body>
 </html>
+
 
