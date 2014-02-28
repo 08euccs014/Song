@@ -10,4 +10,22 @@
 
 defined('_JEXEC') or die('Unauthorized Access');
 
-define('SOCIALMAN_NEW_JOOMLA', (JVERSION >= '3.0'));
+//base class for plugin that need to be extende
+if(SOCIALMAN_NEW_JOOMLA)
+{
+	abstract class SocialmanAppBase extends JViewLegacy
+	{
+	}
+}
+else
+{
+	jimport( 'joomla.application.component.view' );	
+	abstract class SocialmanAppBase extends JViewBase
+	{
+	}
+}
+
+class SocialmanApp extends SocialmanAppBase
+{
+
+}

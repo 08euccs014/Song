@@ -10,4 +10,8 @@
 
 defined('_JEXEC') or die('Unauthorized Access');
 
-define('SOCIALMAN_NEW_JOOMLA', (JVERSION >= '3.0'));
+//base class for plugin that need to be extende
+class SocialmanPlugin extends JPlugin
+{
+		
+}
