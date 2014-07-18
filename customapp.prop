@@ -1,0 +1,6 @@
+app.name 				= custom
+app.nameuppper 		= Custom
+app.version 			= 1.0.0
+app.createdate 		= July 2014
+app.description 		= this app will work on some mysql queries to do some work on invoice paid
+

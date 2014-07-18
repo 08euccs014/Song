@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<name>Restrictusage</name>
+	<author>Team Payplans</author>
+	<authorEmail>support+customwork@readybytes.in</authorEmail>
+	<authorUrl>http://www.readybytes.net/payplans.html</authorUrl>
+	<copyright>2009-14 Ready Bytes Software Labs Pvt. Ltd.</copyright>
+    <description>
+    	<![CDATA[ 
+    		PayPlans : Restrictusage
+    		<br/>Custom work for restrict user to click on a button upto maximum allowed count. 	
+    	]]>
+    </description>
+	<icon>restrictusage.png</icon>
+    <tags>customwork</tags>
+	<help>
+	
+	</help>
+	<fields name ="app_params">
+	<fieldset name ="app_params">
+			
+	</fieldset>
+	</fields>
+
+<alias>pp-restrictusage</alias>
+<documentation></documentation>
+<version>1.0.0</version>
+</config>
+
