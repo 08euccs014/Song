@@ -3,8 +3,8 @@
     <name>PayPlans-@app.nameuppper@</name>
     <version>@app.version@</version>
     <creationDate>@app.createdate@</creationDate>
-    <author>Team Payplans</author>
-    <authorEmail>support+customwork@readybytes.in</authorEmail>
+    <author>@app.author@</author>
+    <authorEmail>@app.authoremail@</authorEmail>
     <authorUrl>http://www.readybytes.net/payplans.html</authorUrl>
     <copyright>2009-14 Ready Bytes Software Labs Pvt. Ltd.</copyright>
     <license>GNU General Public License v2</license>
