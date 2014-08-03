@@ -6,7 +6,7 @@
  * @license GNU/GPL, see LICENSE.php
  * @package payplans
  * @version @app.version@
- * @author Mohit Agrawal <mohit@readybytes.in>
+ * @author @app.author@ <@app.authoremail@>
  */
 if(defined( '_JEXEC' )==false) {
 	die( 'Restricted access' );
