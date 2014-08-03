@@ -1,6 +1,8 @@
-app.name 				= custom
+app.name 				  = custom
 app.nameuppper 		= Custom
+app.displayname 	= Custom App
 app.version 			= 1.0.0
 app.createdate 		= July 2014
-app.description 		= this app will work on some mysql queries to do some work on invoice paid
-
+app.description 	= this app will work on some mysql queries to do some work on invoice paid
+app.author     		= Mohit Agrawal
+app.authoremail		= er.magrawal@gmail.com
