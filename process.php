@@ -7,9 +7,13 @@ class process
 	private static $_gateway = null;
 	
 	public static $_location = __DIR__; 
+	
+	public static $_cliParams = array();
 
-	public function __construct()
+	public function __construct($cliParams = array())
 	{
+		self::$_cliParams = json_decode($cliParams[1]);
+		
 		include_once self::$_location.DS.'base_gateway.php';
 		include_once self::$_location.DS.'logger.php';
 	}
@@ -55,6 +59,10 @@ class process
 			return $_REQUEST[$variable];
 		}
 		
+		if (isset(self::$_cliParams->$variable)) {
+			return self::$_cliParams->$variable;
+		}
+		
 		return $default;	
 	}
 	
@@ -70,6 +78,7 @@ class process
 
 }
 
-$process = new process();
+//this als works for commandline arguments json encoded, you need to exeucte it like this php process.php '{"gateway":"paypal"}'
+$process = new process($argv);
 
 return $process->init();
