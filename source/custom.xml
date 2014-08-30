@@ -19,7 +19,7 @@
 	<!-- Runs on install 
 	<install>
 		<sql>
-			<file driver="mysql" charset="utf8">install/sql/install.mysql.utf8.sql</file>
+			<file driver="mysql" charset="utf8">install/sql/install.sql</file>
 		</sql>
 	</install>
 	
