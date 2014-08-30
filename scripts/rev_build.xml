@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Copying Custom data to GIT" basedir="." default="copy_component">
+
+	<property name="target" value="@local.repository.location@" override="true" />
+	<property name="source" value="${project.basedir}" override="true" />
+
+	<target name="copy_component">
+
+<!--		<copy file="${source}/language/en-GB/en-GB.com_custom.ini" tofile="${target}/source/languages/site/en-GB.com_custom.ini" />-->
+
+		<copy todir="${target}/source/admin">
+
+			<fileset dir="${source}/administrator/components/com_custom">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<move file="${target}/source/admin/custom.xml" tofile="${target}/source/custom.xml" />
+	<!--	<move file="${target}/source/admin/script.custom.php" tofile="${target}/source/script.custom.php" />-->
+
+		<copy todir="${target}/source/site">
+
+			<fileset dir="${source}/components/com_custom">
+				<include name="**/*.*" />
+				<exclude  name="**/*-min.js" />
+			</fileset>
+			
+		</copy>
+
+		<copy file="${source}/build.xml" tofile="${target}/scripts/rev_build.xml" />
+	</target>
+
+</project>
+

@@ -7,15 +7,36 @@ class test extends customApp {
 	{
 		$userId = JFactory::getUser()->id;
 
-		$resources = $this->getResource(1);
-
-		foreach ($resources as $resource) {
-			if ($resource->value) {
-				echo "<br/>".$this->_name;
-				echo "<br/>trigger from the file : ".__FILE__;			
-			}else {
-				$row->text = "You are not allowed to see this resouece. via app $this->_name";
+		//if nothing there is no app instances is created then just do nothing
+		$allAppInstances = $this->getAllInstances();
+		
+		if(empty($allAppInstances) )
+		{
+			return true;
+		}
+		
+		$results = array();
+		
+		foreach ($allAppInstances as $instnace) {
+			
+			$resources = $instnace->getResource($userId);
+			
+			foreach ($resources as $resource) {
+				
+				if ($resource->value == 1) {
+					$results[$instnace->_id] = true;
+				}else {
+					$results[$instnace->_id] = false;
+				}
 			}
+			
+		}
+		
+		if(in_array(false, $results)) {
+			$row->text = "You are not allowed to see this resouece.";
+		}
+		else {
+			echo "<br/>trigger from the app.";
 		}
 
 		return true;

@@ -10,13 +10,22 @@ class customApp
 	
 	protected $_type = null;
 	 
-	public function __construct($object) 
+	public function __construct($object = null) 
 	{
-		$this->_id 		= $object->id;
-		$this->_name 	= $object->name;
-		$this->_params 	= json_decode($object->params);
+		if (null == $object) {
+			$object = new stdClass();
+			
+			$object->app_id = 0;
+			$object->name 	= 'parentObject';
+			$object->type 	= $this->_type;
+			$object->params = $this->_params;
+		}
 		
-		$this->_allInstances = $this->getAllInstances();
+		$this->_id 		= $object->app_id;
+		$this->_name 	= $object->name;
+		$this->_type 	= $object->type;
+		$this->_params 	= json_decode($object->params);
+
 	}
 	
 	public function getParam($key='' , $default = null)
@@ -47,9 +56,22 @@ class customApp
 		return $resources;
 	}
 	
+	/**
+	 * It will return how many instances are create of an app
+	 */
 	function getAllInstances()
 	{
-		return $records;
+		$apps = array();
+		
+		$model = new customModelApp();
+		$appInstances = $model->loadRecords(array('type'=>$this->_type));
+		
+		foreach ($appInstances as $instance) {
+			$apps[] = new self($instance);	
+		}
+		
+		return $apps;
+
 	}
 	
 	function addResource()

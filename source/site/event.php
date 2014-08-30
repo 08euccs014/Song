@@ -11,15 +11,18 @@ class customEvent
 		
 		foreach ($apps as $app) {
 			
+			//create instance may be there is something that need to initialize rather than just calling function of class
+			$appObject = new $app();
+			
 			if(method_exists($app, $event)) {
-				$result[] = call_user_method_array($event, $app, $args);
+				$result[] = call_user_method_array($event, $appObject, $args);
 			}
 		}
 		
 		return $result;
 	}
 	
-	//these are the apps which are loaded from the database
+	//these are the apps which are has been availabe in ACL manager
 	public static function loadApps()
 	{
 		static $apps = array();
@@ -27,23 +30,14 @@ class customEvent
 		if (!empty($apps)) {
 			return $apps;
 		}
+	
+		$files	=	JFolder::files(CUSTOM_APPS_PATH,".php$");
 		
-		$arg1 = new stdClass();
-		$arg1->id = 1;
-		$arg1->name = 'testing1';
-		$arg1->type = 'test';
-		$arg1->params = '{"param1":"value1"}';
-		
-		$arg2 = new stdClass();
-		$arg2->id = 2;
-		$arg2->name = 'testing2';
-		$arg2->type = 'test';
-		$arg2->params = '{"param1":"value2"}';
-		
-		$records = array($arg1, $arg2);
-		
-		foreach ($records as $app ) {
-			$apps[] = new $app->type($app);
+		if(is_array($files)){
+			foreach($files as $file ){
+				$classname 	= JFile::stripExt($file);
+				$apps[] = $classname;
+			}
 		}
 		
 		return $apps;
