@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>Custom System Plguin</name>
+    <version>1.0</version>
+	<creationDate>Aug 2014</creationDate>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<author>Mohit Agrawal</author>
+	<authorEmail>er.magrawal@gmail.com</authorEmail>
+	<description></description>
+
+	<files>
+		<filename plugin="custom">custom.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+	<config>
+	</config>
+</extension>

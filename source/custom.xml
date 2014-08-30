@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5" method="upgrade">
+	<!-- General description-->
+	<name>custom</name>
+	<creationDate>Aug 2014</creationDate>
+	<author>Mohit Agrawal</author>
+	<authorEmail>er.magrawal@gmail.com</authorEmail>
+	<license>GNU GPL 3</license>
+	<description></description>
+	
+	<!-- Public front end files -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>custom.php</filename>
+	</files>
+
+<!-- 	<scriptfile>script.php</scriptfile> -->
+
+	<!-- Runs on install 
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install/sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	
+	 Administrator back-end section -->
+	<administration>
+		
+		<menu img="">Custom</menu>
+	
+		<!-- Back-end files -->
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>custom.php</filename>
+		</files>
+
+	</administration>
+</extension>
