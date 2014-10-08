@@ -37,16 +37,19 @@ do
 	if [ "$confirmation" = "y" ]; 
 	then
 
-		#git cherry-pick $commit;
+		git cherry-pick $commit;
 
-		#git push origin $commitToBranch;
+		echo -e "\n ------------------ \e[42m\e[1m Applying commit \e[0mt ------------------";
+		read -p "if you are not seeing any issues after applying this changes then proceed : (y/n) : " proceed;
 
-		echo -e "\n \e[42m\e[1m Applying commi \e[0mt";
+		if [ "$proceed" = "y" ]; 
+		then
+			git push origin $commitToBranch;
+		fi;
+
 	else
 		echo -e "\n  \e[31m\e[1m Aborting action \e[0m";
-	fi
-
-
+	fi;
 
 	git checkout $currBranch;
 
