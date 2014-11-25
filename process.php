@@ -10,9 +10,9 @@ class process
 	
 	public static $_cliParams = array();
 
-	public function __construct($cliParams = array())
+	public function __construct()
 	{
-		self::$_cliParams = json_decode($cliParams[1]);
+		//self::$_cliParams = json_decode($cliParams[1]);
 		
 		include_once self::$_location.DS.'base_gateway.php';
 		include_once self::$_location.DS.'logger.php';
@@ -79,6 +79,6 @@ class process
 }
 
 //this als works for commandline arguments json encoded, you need to exeucte it like this php process.php '{"gateway":"paypal"}'
-$process = new process($argv);
+$process = new process();
 
 return $process->init();

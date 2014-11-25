@@ -3,3 +3,7 @@ Empty Gateway
 
 August 7, 2014, 4:05 pm From IP :  Using : cli
 Empty Gateway
+
+November 21, 2014, 6:43 pm From IP : 10.0.0.201 Using : apache2handler
+Reponse send
+'ACK=1&NAME=test&PROFILEID=6543210'
