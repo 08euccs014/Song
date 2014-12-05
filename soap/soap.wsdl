@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<definitions name="MyDefinition" 
+ targetNamespace="urn:myTargetNamespace"
+ xmlns:tns="urn:myTns"   
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+ 
+ <message name="myRequest">
+  <part name="reqParam" type="xsd:string"/>
+ </message>
+ <message name="myResponse">
+  <part name="resParam" type="xsd:string"/>
+ </message>
+
+ <portType name="MyPortType">
+  <operation name="getHello">
+   <input message="tns:myRequest"/>
+   <output message="tns:myResponse"/>
+  </operation>
+ </portType>
+
+ <binding name="MyBinding" type="tns:MyPortType">
+  <soap:binding style="rpc"
+   transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="getHello">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body use="encoded"
+     namespace="urn:myInputNamespace"
+     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </input>
+   <output>
+    <soap:body use="encoded"
+     namespace="urn:myOutputNamespace"
+     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </output>
+  </operation>
+ </binding>
+ <service name="MyService">
+  <documentation>Returns a greeting string.
+  </documentation>
+  <port name="MyPort" binding="tns:MyBinding">
+   <soap:address
+  location="http://localhost/soap/soap_server.php"/>
+  </port>
+ </service>
+</definitions>
